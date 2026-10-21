@@ -1,0 +1,6 @@
+{
+  "name": "LUNA — Voice Assistant for Mahnoor Tabassam",
+  "description": "Sophisticated real-time voice assistant representing Data Analyst Mahnoor Tabassam, powered by Gemini Live API with a minimalist serif aesthetic.",
+  "requestFramePermissions": ["microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,163 @@
+@import "tailwindcss";
+
+:root {
+  --bg-cream: #FAF8F5;
+  --surface-warm: #F3EFEA;
+  --text-main: #1D1A17;
+  --text-muted: #7A746E;
+  --border-subtle: #E6E1D9;
+  --accent-rose: #E8B4B8;
+  --accent-blush: #F7E7E8;
+  --accent-dark: #2B2623;
+  --glow: rgba(232, 180, 184, 0.45);
+}
+
+@theme {
+  --font-serif: "Playfair Display", "Cormorant Garamond", Georgia, Cambria, serif;
+  --font-editorial: "Cormorant Garamond", Georgia, serif;
+  --font-sans: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-cream);
+  color: var(--text-main);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  position: relative;
+}
+
+/* Ambient background glow */
+body::before {
+  content: "";
+  position: fixed;
+  top: -20%;
+  right: -10%;
+  width: 650px;
+  height: 650px;
+  background: radial-gradient(circle, var(--accent-blush) 0%, transparent 70%);
+  z-index: -1;
+  opacity: 0.85;
+  filter: blur(70px);
+  pointer-events: none;
+}
+
+/* Orb Pearl Interface */
+.orb-container {
+  position: relative;
+  width: 175px;
+  height: 175px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.3s ease;
+}
+
+.orb-container:hover {
+  transform: scale(1.03);
+}
+
+.orb-ring {
+  position: absolute;
+  inset: -14px;
+  border-radius: 50%;
+  border: 1px solid var(--border-subtle);
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+.orb-ring-outer {
+  position: absolute;
+  inset: -28px;
+  border-radius: 50%;
+  border: 1px dashed rgba(232, 180, 184, 0.4);
+  opacity: 0;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  pointer-events: none;
+}
+
+.orb {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #FFFFFF 0%, var(--accent-blush) 45%, var(--accent-rose) 100%);
+  box-shadow: 0 20px 45px var(--glow);
+  transition: all 0.4s ease;
+  position: relative;
+}
+
+/* Pearl specular highlights */
+.orb::after {
+  content: "";
+  position: absolute;
+  top: 18%;
+  left: 22%;
+  width: 32px;
+  height: 20px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0) 80%);
+  transform: rotate(-30deg);
+  pointer-events: none;
+}
+
+.orb-container.listening .orb {
+  transform: scale(1.08);
+  box-shadow: 0 25px 60px rgba(232, 180, 184, 0.7);
+}
+
+.orb-container.listening .orb-ring {
+  inset: -24px;
+  border-color: var(--accent-rose);
+  animation: pulse-ring 2s infinite ease-out;
+}
+
+.orb-container.listening .orb-ring-outer {
+  opacity: 0.75;
+  animation: pulse-ring-outer 3s infinite linear;
+}
+
+.orb-container.speaking .orb {
+  animation: speak-pulse 1.3s infinite alternate ease-in-out;
+}
+
+@keyframes pulse-ring {
+  0% { transform: scale(0.95); opacity: 0.8; }
+  100% { transform: scale(1.25); opacity: 0; }
+}
+
+@keyframes pulse-ring-outer {
+  0% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(180deg) scale(1.05); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+
+@keyframes speak-pulse {
+  0% {
+    transform: scale(1);
+    filter: brightness(1);
+  }
+  100% {
+    transform: scale(1.06);
+    filter: brightness(1.06);
+    box-shadow: 0 25px 55px rgba(232, 180, 184, 0.85);
+  }
+}
+
+/* Custom subtle scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.12);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.22);
+}
